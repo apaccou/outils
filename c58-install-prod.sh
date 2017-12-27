@@ -111,13 +111,13 @@ concrete/bin/concrete5 c5:config set -g concrete.external.news_overlay false
 echo "Disabling intro guide : "
 concrete/bin/concrete5 c5:config set -g concrete.misc.help_overlay false
 
-# Show errors off
+# Show errors off (true/false)
 echo "Show errors : "
 concrete/bin/concrete5 c5:config set -g concrete.debug.display_errors false
 
-# Show detailed errors off
+# Show detailed errors (message/debug)
 echo "Show detailed errors : "
-concrete/bin/concrete5 c5:config set -g concrete.debug.detail debug
+concrete/bin/concrete5 c5:config set -g concrete.debug.detail message
 
 # Active l'url rewriting
 echo "Activate URL Rewriting : "
@@ -128,7 +128,7 @@ echo "Copie le fichier .htaccess optimisé de vers le dossier courant : "
 SCRIPT_PATH=${0%/*}
 cp $SCRIPT_PATH/c58-htaccess-prod.txt ./.htaccess
 
-# Copie le fichier favicon.png de /srv/data/home vers le dossier courant en le renommant facicon.ico
+# Copie le fichier favicon.png de /srv/data/home vers le dossier courant en le renommant favicon.ico
 echo "Copie le fichier .htaccess optimisé de vers le dossier courant : "
 SCRIPT_PATH=${0%/*}
 cp $SCRIPT_PATH/favicon.png ./favicon.ico
