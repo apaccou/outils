@@ -152,3 +152,31 @@ git clone git@github.com:coteo/coteo_package_themesimpleo.git
 cd ..
 echo -n "Installation du Package coteo_package_themesimpleo : "
 concrete/bin/concrete5 c5:package-install coteo_package_themesimpleo
+
+# Ajout du Package imagesdefilantes
+cd packages/
+git clone git@github.com:coteo/coteo_package_imagesdefilantes.git
+cd ..
+echo -n "Installation du Package coteo_package_imagesdefilantes : "
+concrete/bin/concrete5 c5:package-install coteo_package_imagesdefilantes
+
+# Ajout du Package image_content
+cd packages/
+git clone git@github.com:coteo/coteo_package_image_content.git
+cd ..
+echo -n "Installation du Package coteo_package_image_content : "
+concrete/bin/concrete5 c5:package-install coteo_package_image_content
+
+# Ajout du Package fluxrss
+cd packages/
+git clone git@github.com:coteo/coteo_package_fluxrss.git
+cd ..
+echo -n "Installation du Package coteo_package_fluxrss : "
+concrete/bin/concrete5 c5:package-install coteo_package_fluxrss
+
+# Ajout du Package simple_gallery
+cd packages/
+git clone git@github.com:coteo/coteo_package_simple_gallery.git
+cd ..
+echo -n "Installation du Package coteo_package_simple_gallery : "
+concrete/bin/concrete5 c5:package-install coteo_package_simple_gallery
