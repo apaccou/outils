@@ -123,6 +123,14 @@ concrete/bin/concrete5 c5:config set -g concrete.debug.detail message
 echo "Activate URL Rewriting : "
 concrete/bin/concrete5 c5:config set -g concrete.seo.url_rewriting true
 
+# Set Title format
+echo "Set Title format : "
+concrete/bin/concrete5 c5:config set -g concrete.seo.title_format '%2$s - %1$s'
+
+# Set Title segment separator
+echo "Set Title segment separator : "
+concrete/bin/concrete5 c5:config set -g concrete.seo.title_segment_separator ' - '
+
 # Copie le fichier c58-htaccess-prod.txt (.htaccess optimisé) de /srv/data/home vers le dossier courant en le renommant .htaccess
 echo "Copie le fichier .htaccess optimisé de vers le dossier courant : "
 SCRIPT_PATH=${0%/*}
