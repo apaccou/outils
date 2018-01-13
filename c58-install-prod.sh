@@ -131,6 +131,10 @@ concrete/bin/concrete5 c5:config set -g concrete.seo.title_format '%2$s - %1$s'
 echo "Set Title segment separator : "
 concrete/bin/concrete5 c5:config set -g concrete.seo.title_segment_separator ' - '
 
+# Set Exclude words
+echo "Set Exclude words"
+concrete/bin/concrete5 c5:config set -g concrete.seo.exclude_words 'a, an, as, at, before, but, by, for, from, is, in, into, like, of, off, on, onto, per, since, than, the, this, that, to, up, via, with, le, la, les, du, de, aux, dans, et'
+
 # Copie le fichier c58-htaccess-prod.txt (.htaccess optimisé) de /srv/data/home vers le dossier courant en le renommant .htaccess
 echo "Copie le fichier .htaccess optimisé de vers le dossier courant : "
 SCRIPT_PATH=${0%/*}
