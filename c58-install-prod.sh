@@ -17,8 +17,8 @@
 
 # Paramètres
 # ----------
-CONCRETE5_VERSION="concrete5-8.3.1"
-CONCRETE5_DOWNLOAD_URL="https://www.concrete5.org/download_file/-/view/99963/"
+CONCRETE5_VERSION="concrete5-8.3.2"
+CONCRETE5_DOWNLOAD_URL="https://www.concrete5.org/download_file/-/view/100595/"
 
 DB_SERVER='localhost'
 MYSQL_USERNAME=""
