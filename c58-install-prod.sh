@@ -13,7 +13,7 @@
 # Utilisation
 # ----------
 # A lancer directement depuis le répertoire htdocs du site à installer soit /srv/data/web/vhosts/ndd_du_site/htdocs/ sur Simple Hosting
-# Commande à lancer : ../../../../home/c58-htaccess-prod.sh ou ~/c58-htaccess-prod.sh 
+# Commande à lancer : ../../../../home/c58-install-prod.sh ou ~/c58-install-prod.sh 
 
 # Paramètres
 # ----------
