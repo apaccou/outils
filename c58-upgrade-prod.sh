@@ -46,8 +46,6 @@ else
   echo $DB_PASSWORD
 fi
 
-exit
-
 # Sauvegarde de la BDD avant MAJ
 echo -n "  >> Sauvegarde de la BDD ... "
 DATE=$(date +%Y%m%d)
@@ -64,15 +62,79 @@ else
   exit
 fi
 
-# Test la taille de la sauvegarde sql > 1 Mo
-echo -n "  >> Vérifie que la taille de la sauvegarde > 1 Mo ... "
-if [ `du $DB_DATABASE-save$DATE.sql | cut -f1` -gt 1000 ]
+# Test la taille de la sauvegarde sql > 500 Ko
+echo -n "  >> Vérifie que la taille de la sauvegarde SQL > 500 Ko ... "
+if [ `ls -l $DB_DATABASE-save$DATE.sql | cut -d " " -f5` -gt 500 ]
 then
   echo "OK"
 else
-  echo " ERREUR : il semble y avoir une erreur avec la sauvegarde."
-#  exit
+  echo " ERREUR : il semble y avoir une erreur avec la sauvegarde de la base de donnée."
+ exit
 fi
 
 # Sauvegardes des fichiers avant MAJ
-zip -r $DB_DATABASE-save$DATE.zip .
+echo -n "  >> Sauvegardes du dossier /concrete avant MAJ ... "
+echo "Mode silencieux : pas de prompt avant la fin du processus."
+zip -qr $DB_DATABASE-save$DATE.zip concrete
+
+# Test la taille de la sauvegarde zip > 1 Mo
+echo -n "  >> Vérifie que la taille de la sauvegarde ZIP > 1 Mo ... "
+if [ `ls -l $DB_DATABASE-save$DATE.zip | cut -d " " -f5` -gt 1000 ]
+then
+  echo "OK"
+else
+  echo " ERREUR : il semble y avoir une erreur avec la sauvegarde du dossier /concrete."
+ exit
+fi
+
+# Téléchargement de Concrete5 dans le dossier /updates
+cd updates/
+echo "  >> Téléchargement de la version $CONCRETE5_VERSION de Concrete5 dans le dossier /updates : "
+wget ${CONCRETE5_DOWNLOAD_URL} -O concrete5.zip
+
+# Extraction des fichiers du dossier /updates/$CONCRETE5_VERSION
+echo -n "  >> Extraction des fichiers du dossier /updates/$CONCRETE5_VERSION ... "
+echo "Mode silencieux : pas de prompt avant la fin du processus."
+unzip -q concrete5.zip
+mv ${CONCRETE5_VERSION}/concrete/ .
+echo "  >> Suppression des fichiers et dossier /updates/concrete5.zip et /updates/$CONCRETE5_VERSION ... "
+rm -f concrete5.zip
+rm -rf ${CONCRETE5_VERSION}/
+
+# Mise à jour de Concrete5
+echo "  >> Mise à jour de Concrete5 ... "
+cd ..
+mv concrete/ concrete.old/
+mv updates/concrete/ .
+concrete/bin/concrete5 c5:update
+echo "Mise à jour effectuée. Veuillez vérifier que le site fonctionne correctement."
+
+# Confirmation / Annulation de la mise à jour
+echo "  >> Confirmation / Annulation de la mise à jour ... "
+echo "Voulez-vous annuler la mise à jour [oui/non] ?"
+while :
+do
+  read INPUT_STRING
+  case $INPUT_STRING in
+	oui)
+		echo "Oui"
+    echo "  >> Annulation en cours ... "
+    rm -rf concrete/
+    mv concrete.old/ concrete/
+    echo "Ancien dossier concrete/ remis en place"
+    mysqldump -l -h $DB_SERVER -u $DB_USERNAME -p"$DB_PASSWORD" $DB_DATABASE < $DB_DATABASE-save$DATE.sql
+    echo "Sauvegarde de la base de donnée importée"
+    echo "Annulation terminée, les sauvegardes au format zip et sql sont dans le dossier htdocs du site en cas de besoin."
+    break
+		;;
+	non)
+		echo "Non"
+		break
+		;;
+	*)
+		echo "Veuillez taper [oui] ou [non]"
+		;;
+  esac
+done
+
+echo "That's all folks!"
