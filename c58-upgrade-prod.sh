@@ -129,6 +129,7 @@ do
 		;;
 	non)
 		echo "Non"
+    rm -rf concrete.old/
 		break
 		;;
 	*)
