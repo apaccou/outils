@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script d'upgrade de Concrete 5.8 sur Simple Hosting avec la dernière version de concrete5 en download depuis le site Concrete5
+# Script d'upgrade de Concrete 5.8 sur Simple Hosting avec la version de concrete5 en download depuis le site Concrete5 (à mettre à jour manuellement dans le script en cas de MAJ)
 # Version:   0.0.1
 # Author:    Alexandre PACCOU / COTEO
 
@@ -111,13 +111,13 @@ echo "Mise à jour effectuée. Veuillez vérifier que le site fonctionne correct
 
 # Confirmation / Annulation de la mise à jour
 echo "  >> Confirmation / Annulation de la mise à jour ... "
-echo "Voulez-vous annuler la mise à jour [oui/non] ?"
+echo "Voulez-vous confirmer la mise à jour [oui/non] ? Si non, la mise à jour sera annulée."
 while :
 do
   read INPUT_STRING
   case $INPUT_STRING in
-	oui)
-		echo "Oui"
+	non)
+		echo "Non"
     echo "  >> Annulation en cours ... "
     rm -rf concrete/
     mv concrete.old/ concrete/
@@ -127,8 +127,8 @@ do
     echo "Annulation terminée, les sauvegardes au format zip et sql sont dans le dossier htdocs du site en cas de besoin."
     break
 		;;
-	non)
-		echo "Non"
+	oui)
+		echo "Oui"
     rm -rf concrete.old/
 		break
 		;;
