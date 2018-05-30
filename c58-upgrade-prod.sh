@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script d'upgrade de Concrete 5.8 sur Simple Hosting avec la version de concrete5 en download depuis le site Concrete5 (à mettre à jour manuellement dans le script en cas de MAJ)
-# Version:   0.0.1
+# Version:   0.0.2
 # Author:    Alexandre PACCOU / COTEO
 
 # Documentation commandes CLI Concrete5
@@ -25,11 +25,10 @@ CONCRETE5_DOWNLOAD_URL="https://www.concrete5.org/download_file/-/view/100595/"
 
 # Récupére les accès à la BDD
 echo "  >> Lecture des accès BDD ... "
-DB_SERVER=$( grep server application/config/database.php | cut -d"'" -f4 )
-DB_DATABASE=$( grep database application/config/database.php | cut -d"'" -f4 )
-DB_USERNAME=$( grep username application/config/database.php | cut -d"'" -f4 )
-DB_PASSWORD=$( grep password application/config/database.php | cut -d"'" -f4 )
-
+DB_SERVER=$(concrete/bin/concrete5 c5:config get database.connections.concrete.server)
+DB_DATABASE=$(concrete/bin/concrete5 c5:config get database.connections.concrete.database)
+DB_USERNAME=$(concrete/bin/concrete5 c5:config get database.connections.concrete.username)
+DB_PASSWORD=$(concrete/bin/concrete5 c5:config get database.connections.concrete.password)
 
 if [ -z $DB_SERVER ] || [ -z $DB_DATABASE ] || [ -z $DB_USERNAME ] || [ -z $DB_PASSWORD ]
 then
@@ -122,7 +121,7 @@ do
     rm -rf concrete/
     mv concrete.old/ concrete/
     echo "Ancien dossier concrete/ remis en place"
-    mysqldump -l -h $DB_SERVER -u $DB_USERNAME -p"$DB_PASSWORD" $DB_DATABASE < $DB_DATABASE-save$DATE.sql
+    mysql -l -h $DB_SERVER -u $DB_USERNAME -p"$DB_PASSWORD" $DB_DATABASE < $DB_DATABASE-save$DATE.sql
     echo "Sauvegarde de la base de donnée importée"
     echo "Annulation terminée, les sauvegardes au format zip et sql sont dans le dossier htdocs du site en cas de besoin."
     break
