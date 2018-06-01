@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de copie de Concrete 5.8 sur Simple Hosting du site de prod vers site de test
-# Version:   0.0.1
+# Version:   0.0.2
 # Author:    Alexandre PACCOU / COTEO
 
 # Pré-requis
@@ -57,7 +57,7 @@ else
   echo $DB_PASSWORD
 fi
 
-# Sauvegarde de la BDD avant MAJ
+# Sauvegarde de la BDD
 echo -n "  >> Sauvegarde de la BDD ... "
 DATEHMS=$(date +%Y%m%d-%H%M%S)
 mysqldump -l -h $DB_SERVER -u $DB_USERNAME -p"$DB_PASSWORD" $DB_DATABASE > $DB_DATABASE-save$DATEHMS.sql
@@ -112,12 +112,12 @@ concrete/bin/concrete5 c5:clear-cache
 
 # Show errors true (true/false)
 echo -n "Show errors : "
-concrete/bin/concrete5 c5:config set concrete.debug.display_errors true
+concrete/bin/concrete5 c5:config set -g concrete.debug.display_errors true
 echo "true"
 
 # Show detailed errors (message/debug)
 echo -n "Show detailed errors : "
-concrete/bin/concrete5 c5:config set concrete.debug.detail debug
+concrete/bin/concrete5 c5:config set -g concrete.debug.detail debug
 echo "debug"
 
 # Modify database to test
@@ -127,8 +127,39 @@ echo $DB_DATABASE_TEST
 
 # Modify canonical url
 echo -n "Modify canonical url : "
-concrete/bin/concrete5 c5:config set site.seo.canonical_url http://$VHOST_TEST
+concrete/bin/concrete5 c5:config set -g site.seo.canonical_url http://$VHOST_TEST
 echo "http://$VHOST_TEST"
+
+# Disabling Block Cache
+echo -n "Disabling Block Cache : "
+concrete/bin/concrete5 c5:config set -g concrete.cache.blocks false
+echo "false"
+
+# Disabling Theme CSS Cache
+echo -n "Disabling Theme CSS Cache : "
+concrete/bin/concrete5 c5:config set -g concrete.cache.theme_css false
+echo "false"
+
+# Disabling Compress LESS Output
+echo -n "Disabling Compress LESS Output : "
+concrete/bin/concrete5 c5:config set -g concrete.theme.compress_preprocessor_output false
+concrete/bin/concrete5 c5:config set -g concrete.theme.generate_less_sourcemap true
+echo "disabled"
+
+# Disabling CSS and JavaScript Cache
+echo -n "CSS and JavaScript Cache : "
+concrete/bin/concrete5 c5:config set -g concrete.cache.assets false
+echo "false"
+
+# Disabling Overrides Cache
+echo -n "Disabling Overrides Cache : "
+concrete/bin/concrete5 c5:config set -g concrete.cache.overrides false
+echo "false"
+
+# Disabling Full Page Caching
+echo -n "Disabling Full Page Caching : "
+concrete/bin/concrete5 c5:config set -g concrete.cache.pages 0
+echo "disabled"
 
 # Clear cache
 echo -n "Clear cache : "
