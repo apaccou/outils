@@ -127,7 +127,7 @@ echo $DB_DATABASE_TEST
 
 ## Modify canonical url
 echo -n "Modify canonical url : "
-concrete/bin/concrete5 c5:config set -g site.seo.canonical_url http://$VHOST_TEST
+concrete/bin/concrete5 c5:config set -g site.default.seo.canonical_url http://$VHOST_TEST
 echo "http://$VHOST_TEST"
 
 ## Disabling Block Cache
