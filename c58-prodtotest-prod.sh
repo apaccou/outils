@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de copie de Concrete 5.8 sur Simple Hosting du site de prod vers site de test
-# Version:   0.0.2
+# Version:   0.0.3
 # Author:    Alexandre PACCOU / COTEO
 
 # Pré-requis
@@ -24,7 +24,7 @@ MYSQL_PASSWORD=""
 # ----------
 
 # Demande le nom du vhost de test
-echo "  >> Entrez le nom du vhost de test... ex : ndd_de_test.nom_du_serveur.coteo.net"
+echo "  >> Entrez le nom du vhost de TEST... ex : ndd_de_test.nom_du_serveur.coteo.net"
 read VHOST_TEST
 
 DIRECTORY="../../$VHOST_TEST"
@@ -106,61 +106,61 @@ cp -R ../htdocs $DIRECTORY
 echo -n "Configuration de l'instance de test"
 cd $DIRECTORY/htdocs
 
-# Clear cache
+## Clear cache
 echo -n "Clear cache : "
 concrete/bin/concrete5 c5:clear-cache
 
-# Show errors true (true/false)
+## Show errors true (true/false)
 echo -n "Show errors : "
 concrete/bin/concrete5 c5:config set -g concrete.debug.display_errors true
 echo "true"
 
-# Show detailed errors (message/debug)
+## Show detailed errors (message/debug)
 echo -n "Show detailed errors : "
 concrete/bin/concrete5 c5:config set -g concrete.debug.detail debug
 echo "debug"
 
-# Modify database to test
+## Modify database to test
 echo -n "Modify database to test : "
 concrete/bin/concrete5 c5:config set database.connections.concrete.database $DB_DATABASE_TEST
 echo $DB_DATABASE_TEST
 
-# Modify canonical url
+## Modify canonical url
 echo -n "Modify canonical url : "
 concrete/bin/concrete5 c5:config set -g site.seo.canonical_url http://$VHOST_TEST
 echo "http://$VHOST_TEST"
 
-# Disabling Block Cache
+## Disabling Block Cache
 echo -n "Disabling Block Cache : "
 concrete/bin/concrete5 c5:config set -g concrete.cache.blocks false
 echo "false"
 
-# Disabling Theme CSS Cache
+## Disabling Theme CSS Cache
 echo -n "Disabling Theme CSS Cache : "
 concrete/bin/concrete5 c5:config set -g concrete.cache.theme_css false
 echo "false"
 
-# Disabling Compress LESS Output
+## Disabling Compress LESS Output
 echo -n "Disabling Compress LESS Output : "
 concrete/bin/concrete5 c5:config set -g concrete.theme.compress_preprocessor_output false
 concrete/bin/concrete5 c5:config set -g concrete.theme.generate_less_sourcemap true
 echo "disabled"
 
-# Disabling CSS and JavaScript Cache
+## Disabling CSS and JavaScript Cache
 echo -n "CSS and JavaScript Cache : "
 concrete/bin/concrete5 c5:config set -g concrete.cache.assets false
 echo "false"
 
-# Disabling Overrides Cache
+## Disabling Overrides Cache
 echo -n "Disabling Overrides Cache : "
 concrete/bin/concrete5 c5:config set -g concrete.cache.overrides false
 echo "false"
 
-# Disabling Full Page Caching
+## Disabling Full Page Caching
 echo -n "Disabling Full Page Caching : "
 concrete/bin/concrete5 c5:config set -g concrete.cache.pages 0
 echo "disabled"
 
-# Clear cache
+## Clear cache
 echo -n "Clear cache : "
 concrete/bin/concrete5 c5:clear-cache
