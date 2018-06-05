@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script de copie de Concrete 5.8 sur Simple Hosting du site de test vers site de prod
-# Version:   0.0.1
+# Version:   0.0.2
 # Author:    Alexandre PACCOU / COTEO
 
 # Pré-requis
@@ -196,7 +196,7 @@ echo $DB_DATABASE_PROD
 
 ## Modify canonical url
 echo -n "Modify canonical url : "
-concrete/bin/concrete5 c5:config set -g site.default.seo.canonical_url http://$VHOST_PROD
+concrete/bin/concrete5 c5:config set -g site.sites.default.seo.canonical_url http://$VHOST_PROD
 echo "http://$VHOST_PROD"
 
 ## Enable Block Cache
