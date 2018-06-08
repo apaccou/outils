@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script d'upgrade de Concrete 5.8 sur Simple Hosting avec la version de concrete5 en download depuis le site Concrete5 (à mettre à jour manuellement dans le script en cas de MAJ)
-# Version:   0.0.2
+# Version:   0.0.3
 # Author:    Alexandre PACCOU / COTEO
 
 # Documentation commandes CLI Concrete5
@@ -17,8 +17,8 @@
 
 # Paramètres
 # ----------
-CONCRETE5_VERSION="concrete5-8.3.2"
-CONCRETE5_DOWNLOAD_URL="https://www.concrete5.org/download_file/-/view/100595/"
+CONCRETE5_VERSION="concrete5-8.4.0"
+CONCRETE5_DOWNLOAD_URL="https://www.concrete5.org/download_file/-/view/104344/"
 
 # STARTS HERE
 # ----------
