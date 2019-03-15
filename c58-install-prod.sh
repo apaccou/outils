@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script d'installation de Concrete 5.8 sur Simple Hosting avec la dernière version de concrete5 en download depuis le site Concrete5
-# Version:   0.0.3
+# Version:   0.0.4
 # Author:    Alexandre PACCOU / COTEO
 
 # Documentation commandes CLI Concrete5
@@ -81,7 +81,7 @@ if [ 15 -lt $taille ]; then
 fi
 mysql -u $MYSQL_USERNAME --password=$MYSQL_PASSWORD -e "CREATE USER '${DB_USERNAME}'@'$DB_SERVER' IDENTIFIED BY '$DB_PASSWORD';"
 mysql -u $MYSQL_USERNAME --password=$MYSQL_PASSWORD -e "GRANT USAGE ON * . * TO '$DB_USERNAME'@'$DB_SERVER' IDENTIFIED BY '$DB_PASSWORD' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;"
-mysql -u $MYSQL_USERNAME --password=$MYSQL_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
+mysql -u $MYSQL_USERNAME --password=$MYSQL_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8mb4_unicode_ci;"
 mysql -u $MYSQL_USERNAME --password=$MYSQL_PASSWORD -e "GRANT ALL PRIVILEGES ON $DB_NAME . * TO '$DB_USERNAME'@'localhost';"
 
 # Téléchargement et configuration de Concrete5
